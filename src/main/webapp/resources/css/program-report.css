@@ -1,0 +1,350 @@
+/*.container {
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f28c28;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.back-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background-color: #d35400;
+}
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.report-table th {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.report-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.report-table tr:hover {
+    background-color: #f9f9f9;
+}
+.txn-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.txn-btn:hover {
+    background-color: #d35400;
+}
+*/
+
+
+
+
+
+/* Remove default browser spacing */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+}
+
+/* Full width container */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 30px;   /* small inner spacing only */
+    box-sizing: border-box;
+}
+
+/* Heading */
+h2 {
+    margin-bottom: 15px;
+}
+
+/* Table base */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+/* Table cells */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Header row */
+th {
+    background-color: #f28c28;
+    color: white;
+}
+
+/* Alternate row color */
+tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* Header section (Back button + spacing) */
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Back button */
+.back-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background-color: #d35400;
+}
+
+/* Report table */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+/* Table header */
+.report-table th {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Table body cells */
+.report-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect */
+.report-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Transaction button (kept for future use) */
+.txn-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.txn-btn:hover {
+    background-color: #d35400;
+}
+.download-btn {
+    margin-left: auto; /* pushes button to right corner */
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.download-btn:hover {
+    background-color: #1e8449;
+}
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filter-bar label {
+    font-weight: 600;
+}
+
+.filter-bar select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+.item-popup {
+    position: absolute;
+    display: none;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 9999;
+    min-width: 350px;
+}
+
+/* Popup table styling */
+.item-popup table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.item-popup th {
+    background-color: #27ae60;
+    color: white;
+    padding: 6px;
+    text-align: left;
+}
+
+.item-popup td {
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+}
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-bar input,
+.filter-bar select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.filter-bar label {
+    font-weight: 600;
+}
+.search-box {
+    position: relative;
+    display: inline-block;
+}
+
+.search-box input {
+    padding: 6px 30px 6px 10px; /* space for icon on right */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #777;
+    pointer-events: none; /* click goes to input */
+}
+.item-popup {
+    position: absolute;
+    display: none;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    padding: 0;
+    z-index: 9999;
+    min-width: 350px;
+}
+
+/* Close button */
+.popup-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+.popup-close:hover {
+    color: #e74c3c; /* red on hover */
+}
+/* White header area */
+.popup-header {
+    height: 36px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Close (X) button */
+.popup-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.popup-close:hover {
+    color: #e74c3c;
+    transform: scale(1.1);
+}

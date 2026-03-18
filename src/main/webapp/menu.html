@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management - Cafeteria</title>
+
+    
+    <link rel="stylesheet" href="resources/css/shared.css">
+    <link rel="stylesheet" href="resources/css/menu.css">
+</head>
+
+<body class="menu-page">
+
+  
+    <nav class="navbar">
+        <div class="nav-brand">Cafeteria Manager</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html" class="active">Menu</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Bill Management ▾</a>
+                <div class="dropdown-content">
+                    <a href="new-bill.html">New Bill</a>
+                    <a href="edit-bill.html">Edit Bill</a>
+                    <a href="print-bill.html">Print Bill</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    
+    <div class="container main-content">
+        <div class="page-header">
+            <h1>Menu Items</h1>
+            <button class="btn btn-primary" id="openAddModalBtn">+ Add New Item</button>
+        </div>
+
+        <div class="table-container glass-card">
+            <table id="menuTable">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>A-Rate (₹)</th>
+                        <th>B-Rate (₹)</th>
+                        <th>C-Rate (₹)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div id="emptyState" class="empty-state" style="display:none;">
+                No items in the menu.
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+
+            <h2 id="modalTitle">Add New Menu Item</h2>
+
+            <form id="itemForm">
+                <div class="form-group">
+                    <label>Item Code</label>
+                    <input type="text" id="itemCode" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="itemName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>A-Rate (₹)</label>
+                    <input type="number" id="itemRateA" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>B-Rate (₹)</label>
+                    <input type="number" id="itemRateB" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>C-Rate (₹)</label>
+                    <input type="number" id="itemRateC" step="0.01" required>
+                </div>
+                
+                <p id="formMessage" style="color:red; display:none; margin-bottom:10px;"></p>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        Add Item
+                    </button>
+                    <button type="button" class="btn cancel-btn" onclick="closeModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    <script>
+        const API = "/items";
+
+        const modal = document.getElementById("addModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const submitBtn = document.getElementById("submitBtn");
+        const form = document.getElementById("itemForm");
+
+        const tableBody = document.querySelector("#menuTable tbody");
+        const emptyState = document.getElementById("emptyState");
+
+        let isEditMode = false;
+        let editingItemCode = null;
+
+        // OPEN ADD MODAL
+        document.getElementById("openAddModalBtn").onclick = () => {
+            isEditMode = false;
+            editingItemCode = null;
+
+            modalTitle.innerText = "Add New Menu Item";
+            submitBtn.innerText = "Add Item";
+
+            form.reset();
+            itemCode.disabled = false;
+            
+            document.getElementById("formMessage").style.display = "none";
+
+
+            modal.style.display = "block";
+        };
+
+        // OPEN EDIT MODAL
+        function openEdit(item) {
+            isEditMode = true;
+            editingItemCode = item.itemCode;
+
+            modalTitle.innerText = "Edit Menu Item";
+            submitBtn.innerText = "Update Item";
+
+            itemCode.value = item.itemCode;
+            itemName.value = item.itemName;
+            itemRateA.value = item.aRate ?? 0;
+            itemRateB.value = item.bRate ?? 0;
+            itemRateC.value = item.cRate ?? 0;
+
+            itemCode.disabled = true; // 🔒 LOCK ITEM CODE
+
+            modal.style.display = "block";
+        }
+
+        // ADD or UPDATE ITEM
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const payload = {
+                itemCode: Number(itemCode.value),
+                itemName: itemName.value.trim(),
+                aRate: Number(itemRateA.value),
+                bRate: Number(itemRateB.value),
+                cRate: Number(itemRateC.value)
+            };
+
+            if (!isEditMode) {
+                // ADD
+            fetch(API + "/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+})
+.then(async response => {
+    const message = await response.text();
+    const msgEl = document.getElementById("formMessage");
+
+    if (!response.ok) {
+        // ❌ Duplicate item code
+        msgEl.innerText = message;
+        msgEl.style.display = "block";
+        return;
+    }
+
+    // ✅ Success
+    msgEl.style.display = "none";
+    closeModal();
+    loadItems();
+});
+
+            } else {
+                // UPDATE
+                fetch(API + "/update/" + editingItemCode, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    closeModal();
+                    loadItems();
+                });
+            }
+        });
+
+        // CLOSE MODAL
+        function closeModal() {
+            modal.style.display = "none";
+            form.reset();
+            itemCode.disabled = false;
+        }
+
+        // LOAD ITEMS
+        function loadItems() {
+            fetch(API + "/all")
+                .then(res => res.json())
+                .then(data => {
+                    tableBody.innerHTML = "";
+
+                    if (!data || data.length === 0) {
+                        emptyState.style.display = "block";
+                        return;
+                    }
+
+                    emptyState.style.display = "none";
+
+                    data.forEach((item, index) => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${item.itemCode}</td>
+                                <td>${item.itemName}</td>
+                                <td>${item.aRate ?? 0}</td>
+                                <td>${item.bRate ?? 0}</td>
+                                <td>${item.cRate ?? 0}</td>
+                                <td>
+                                    <button onclick='openEdit(${JSON.stringify(item)})'
+                                     style="color:red; font-weight:bold; background:none; border:none; cursor:pointer;">
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+       
+        loadItems();
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

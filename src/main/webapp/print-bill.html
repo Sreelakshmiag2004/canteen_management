@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Bill - Cafeteria</title>
+    <link rel="stylesheet" href="resources/css/shared.css">
+    <link rel="stylesheet" href="resources/css/print-bill.css">
+</head>
+
+<body>
+    <nav class="navbar dont-print">
+        <div class="nav-brand">Cafeteria Manager</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn" class="active">Bill Management ▾</a>
+                <div class="dropdown-content">
+                    <a href="new-bill.html">New Bill</a>
+                    <a href="edit-bill.html">Edit Bill</a>
+                    <a href="print-bill.html" class="active">Print Bill</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container main-content">
+        <div class="search-section dont-print">
+            <h1>Print / Edit Bill</h1>
+            <div class="search-box">
+                <input type="number" id="billSearchInput" placeholder="Enter Bill ID (e.g. 1)">
+                <button id="searchBtn" class="btn btn-primary">Search</button>
+            </div>
+            <div id="searchError" class="error-msg"></div>
+        </div>
+
+        <div id="billInvoice" class="invoice-container" style="display: none;">
+            <div class="invoice-header">
+                <h2>Cafeteria Invoice</h2>
+                <div class="invoice-meta">
+                    <p><strong>Bill No:</strong> #<span id="dispBillId"></span></p>
+                    <p><strong>Generated:</strong> <span id="dispBillDate"></span></p>
+                    <p><strong>Program UID:</strong> <span id="dispProgramUid">-</span></p>
+                    <p><strong>Program Name:</strong> <span id="dispProgramName">-</span></p>
+                    <p><strong>Coordinator:</strong> <span id="dispCoordinatorName">-</span></p>
+                    <p><strong>Program Date:</strong> <span id="dispProgramDate">-</span></p>
+                    <p><strong>Program Time:</strong> <span id="dispProgramTime">-</span></p>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th class="dont-print action-col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    <!-- Items -->
+                </tbody>
+            </table>
+
+            <div class="invoice-footer">
+                <div class="invoice-total">
+                    Grand Total: <span id="dispGrandTotal"></span>
+                </div>
+            </div>
+
+            <div class="invoice-actions dont-print">
+                <button id="printBtn" class="btn btn-primary">🖨️ Print Invoice</button>
+                <button id="deleteBillBtn" class="btn btn-danger">Delete Bill</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Qty Modal (Simple input) -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Edit Quantity</h2>
+            <form id="editForm">
+                <div class="form-group">
+                    <label>New Quantity</label>
+                    <input type="number" id="editQty" min="1" required>
+                    <input type="hidden" id="editItemIndex">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="resources/js/shared.js"></script>
+    <script src="resources/js/print-bill.js"></script>
+</body>
+
+</html>

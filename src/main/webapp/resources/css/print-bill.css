@@ -1,0 +1,146 @@
+.search-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.search-box input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 250px;
+}
+
+.error-msg {
+    color: var(--accent-color);
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* Invoice Layout */
+.invoice-container {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.invoice-header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.invoice-header h2 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.invoice-meta {
+    text-align: right;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.invoice-table th,
+.invoice-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.invoice-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.invoice-total {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.invoice-actions {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Modal for Edit */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* Printing logic */
+@media print {
+    body {
+        background-color: var(--white);
+    }
+
+    .dont-print {
+        display: none !important;
+    }
+
+    .navbar,
+    .footer,
+    .btn,
+    .search-section,
+    .invoice-actions {
+        display: none;
+    }
+
+    .invoice-container {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .main-content {
+        margin: 0;
+        padding: 0;
+    }
+}
+

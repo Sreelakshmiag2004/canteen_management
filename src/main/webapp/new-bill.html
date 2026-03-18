@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Bill - Cafeteria</title>
+    <link rel="stylesheet" href="resources/css/shared.css">
+    <link rel="stylesheet" href="resources/css/new-bill.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Cafeteria Manager</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn" class="active">Bill Management ▾</a>
+                <div class="dropdown-content">
+                    <a href="new-bill.html" class="active">New Bill</a>
+                    <a href="edit-bill.html">Edit Bill</a>
+                    <a href="print-bill.html">Print Bill</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+   
+        <div class="details-section">
+            <div class="program-details-panel">
+                <div class="panel-row">
+                    <label class="panel-label">PROGRAMME UID:</label>
+                   <div class="panel-input-group search-wrapper">
+
+    <!-- TOP SEARCH ROW -->
+    <div class="search-row">
+        <input type="text"
+               id="programUid"
+               placeholder="Enter UID"
+               class="input-field">
+
+        <input type="text"
+               id="programYear"
+               value="2025"
+               class="input-field small-input">
+
+        <button type="button"
+                class="search-btn"
+                id="searchProgramBtn">🔍</button>
+    </div>
+
+    <!-- 🔽 DROPDOWN BELOW -->
+    <div id="programResultsBox"
+         class="program-results-box"></div>
+
+</div>
+
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">PROGRAMME CALL ID:</label>
+                    <input type="text" id="programCallId" class="input-field full-width-input">
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">PROG NO:</label>
+                    <input type="text" id="progNo" class="input-field full-width-input">
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">PROGRAMME NAME:</label>
+                    <input type="text" id="programName" class="input-field full-width-input">
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">SESSION:</label>
+                    <input type="text" id="session" class="input-field full-width-input">
+                </div>
+            </div>
+
+            <div class="schedule-details-panel">
+                <div class="panel-row multi-col">
+                    <div class="col-item">
+                        <label class="panel-label">DATE</label>
+                    </div>
+                    <div class="col-item">
+                        <label class="sub-label">FROM</label>
+                        <input type="date" id="programDateFrom" class="input-field">
+                    </div>
+                    <div class="col-item">
+                        <label class="sub-label">TO</label>
+                        <input type="date" id="programDateTo" class="input-field">
+                    </div>
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">DURATION:</label>
+                    <input type="text" id="duration" class="input-field full-width-input">
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">CATEGORY:</label>
+                    <input type="text" id="category" class="input-field full-width-input">
+                </div>
+
+                <div class="panel-row">
+                    <label class="panel-label">COORDINATOR:</label>
+                    <input type="text" id="coordinatorName" class="input-field full-width-input">
+                </div>
+            </div>
+        </div>
+
+      
+        <div class="billing-section">
+            <div class="billing-header">
+                <div class="total-rows-indicator">
+                    Total Rows : <span id="totalRowsCount" class="badge-count">0</span>
+                </div>
+               
+            </div>
+
+            <div class="table-container">
+                <button id="openAddModalBtn" class="add-bill-btn">Add Bill</button>
+                <table id="billTable">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Service Date</th>
+                            <th>Served Time</th>
+                            <th>Menu Item</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+
+            <div class="action-footer">
+                <button id="exitBtn" class="btn btn-danger">Exit</button>
+                <button id="generateBillBtn" class="btn btn-primary" disabled>Generate Bill</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Add menu items</h2>
+            <form id="addItemForm" class="add-grid">
+                <div class="form-group">
+                    <label for="serviceDate">Service Date</label>
+                    <input type="date" id="serviceDate">
+                </div>
+                <div class="form-group">
+                    <label for="servedTime">Served Time</label>
+                    <input type="time" id="servedTime">
+                </div>
+                <div class="form-group span-2-col">
+                    <label for="itemSelect">Menu Item</label>
+                    <select id="itemSelect" required>
+                        <option value="" disabled selected>-- Select an Item --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="itemQty">Quantity</label>
+                    <input type="number" id="itemQty" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="rateTypeSelect">Rate Type</label>
+                    <select id="rateTypeSelect" required>
+                        <option value="a">A-Rate</option>
+                        <option value="b">B-Rate</option>
+                        <option value="c">C-Rate</option>
+                    </select>
+                </div>
+                <div class="form-group span-2-col">
+                    <label>Rate</label>
+                    <input type="text" id="displayPrice" disabled placeholder="₹0.00">
+                </div>
+                <button type="submit" class="btn btn-primary full-width" id="submitBtn">Add to Bill</button>
+            </form>
+        </div>
+    </div>
+    <!-- ✅ CUSTOM POPUP -->
+<div id="popupBox" class="popup-box">
+    <span id="popupMessage"></span>
+</div>
+
+
+    <script src="resources/js/shared.js"></script>
+    <script src="resources/js/new-bill.js"></script>
+</body>
+
+</html>
+
+

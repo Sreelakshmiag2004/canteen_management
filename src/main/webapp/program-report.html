@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Program Report</title>
+    <link rel="stylesheet" href="resources/css/shared.css">
+    <link rel="stylesheet" href="resources/css/program-report.css">
+</head>
+<body>
+
+<nav class="navbar">
+        <div class="nav-brand">Cafeteria Manager</div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Bill Management ▾</a>
+                <div class="dropdown-content">
+                    <a href="new-bill.html">New Bill</a>
+                    <a href="edit-bill.html">Edit Bill</a>
+                    <a href="print-bill.html">Print Bill</a>
+                    
+                </div>
+            </li>
+           
+        </ul>
+    </nav>
+
+<div class="container">
+    <div class="report-header">
+    <a href="edit-bill.html" class="back-btn">← Back</a>
+    <button class="download-btn" onclick="downloadExcel()">
+        ⬇ Download
+    </button>
+  
+</div>
+    <div class="filter-bar">
+    <label for="programType">Program Type:</label>
+    <select id="programType" onchange="filterByType()">
+        <option value="all">All</option>
+        <option value="planned">Planned</option>
+        <option value="unplanned">Unplanned</option>
+    </select>
+   <label for="searchUid">Programme UID:</label>
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchUid"
+            placeholder="Enter UID"
+            onkeyup="applyFilters()"
+        >
+        <span class="search-icon">🔍</span>
+    </div>
+
+    <label for="searchName">Programme Name:</label>
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchName"
+            placeholder="Enter Name"
+            onkeyup="applyFilters()"
+        >
+        <span class="search-icon">🔍</span>
+    </div>
+</div>
+
+    <h2>Programme Report</h2>
+
+    <table id="programTable" class="report-table">
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+            <th>Program UID</th>
+            <th>Year</th>
+            <th>Program Name</th>
+            <th>Session</th>
+            <th>Date From</th>
+            <th>Date To</th>
+            <th>Category</th>
+            <th>Coordinator</th>
+            <th>Total (₹)</th>
+            <th>Transaction</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="resources/js/program-report.js"></script>
+<div id="itemPopup" class="item-popup"></div>
+
+</body>
+</html>
+
